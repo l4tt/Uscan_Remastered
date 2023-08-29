@@ -1,0 +1,6 @@
+requests
+random
+socket
+dnspython
+threading
+rich

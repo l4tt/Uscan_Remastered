@@ -1,0 +1,8 @@
+{
+    "threads": 50,
+    "useragent": "Uscan",
+    "timeouts": 5,
+    "enable-exploits": true,
+    "enable-recon": true,
+    "logging": false
+}
