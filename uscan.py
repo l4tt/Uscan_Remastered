@@ -35,6 +35,9 @@ class Uscan(HelpMenu):
                 print(self.HELP)
             elif user_input == "ver":
                 print(f"{self.MENU_VERSION}{VERSION}")
+            elif user_input == "clear":
+                self.clear_console()
+                print(HelpMenu.banner)
 
 
 

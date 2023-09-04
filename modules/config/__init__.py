@@ -25,3 +25,6 @@ class Config(DetectionMessages):
 
     def enable_recon(self) -> bool:
         return self.json_dump['enable-recon']
+
+    def logging(self) -> bool:
+        return self.json_dump['logging']

@@ -1,2 +1,7 @@
 # Uscan_Remastered
- Uscan_Remastered version not for public use yet 
+...
+
+This is a new version of Uscan, currently in a testing branch and not intended for public use yet.
+
+
+
