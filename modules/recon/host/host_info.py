@@ -2,6 +2,7 @@ import requests
 
 from ...config import Config
 from ...handler.logger.log import log_data_to_file
+from ...handler.retry.retryrequest import RetryRequest
 from messages import SuccessMessages
 from socket import gethostbyname
 
@@ -14,9 +15,10 @@ class HostInfo(SuccessMessages):
         take me to the magic of the moment where the children of tomarrow with you me,
         the wind of change blows straight
         """
+        self.retry_request = RetryRequest(max_retries=5)
         self.url = url
         self.CONFIG = Config()
-        self.request = requests.get(f"{url}/", timeout=self.CONFIG.timeouts(), headers={"User-Agent": self.CONFIG.useragent()}).headers
+        self.request = self.retry_request.retry(requests.get, f"{url}/", timeout=self.CONFIG.timeouts(), headers={'User-Agent': self.CONFIG.useragent()}).headers
         self.CLOUDFLARE = ['172', '104', '103', '173', '8']
 
 
@@ -84,5 +86,5 @@ class HostInfo(SuccessMessages):
                 log_data_to_file(True, "info", "Cloudflare")
                 return True
         except Exception:
-            raise
+            return False
         return False

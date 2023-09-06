@@ -8,7 +8,7 @@ from modules.scanner import Scanner
 class Uscan(HelpMenu):
     def __init__(self) -> None:
         self.SCANNER = Scanner()
-        pass
+
 
 
     def clear_console(self: object) -> None:

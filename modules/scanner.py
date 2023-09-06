@@ -74,7 +74,9 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
 
 
     def wordpress_modules(self, url: str) -> None:
-        modules_to_run = [Wordpress.detect_wordpress_user(url), Wordpress.detect_wordpress_version(url), Wordpress.detect_wordpress_themes(url), Wordpress.detect_wordpress_plugins(url)]
+        modules_to_run = [Wordpress.detect_wordpress_user(url), Wordpress.detect_wordpress_version(url), 
+                          Wordpress.detect_wordpress_themes(url), Wordpress.detect_wordpress_plugins(url),
+                          Wordpress.detect_install_mode(url), Wordpress.detect_wordpress_backups(url), Wordpress.detect_directory_listing(url)]
         for module in modules_to_run:
             if module:
                 module()

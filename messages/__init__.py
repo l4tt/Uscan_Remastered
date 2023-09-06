@@ -16,10 +16,15 @@ class SuccessMessages:
     FOUND_WORDPRESS_VERSION = f"{SUCCESS_MESSAGES}Wordpress version ›› {Fore.YELLOW}"
     FOUND_WORDPRESS_THEME  = f"{SUCCESS_MESSAGES}Wordpress themes ›› {Fore.YELLOW}"
     FOUND_WORDPRESS_PLUGINS = f"{SUCCESS_MESSAGES}Wordpress plugins ›› {Fore.YELLOW}"
+    FOUND_WORDPRESS_INSTALL_MODE = f"{SUCCESS_MESSAGES}Wordpress is running install mode {Fore.YELLOW}[This Wordpress server isn't configured correctly]"
+    FOUND_WORDPRESS_LISTING = f"{SUCCESS_MESSAGES}Wordpress directory listing enabled ›› {Fore.YELLOW}"
+    FOUND_WORDPRES_BACKUPS = f"{SUCCESS_MESSAGES}Wordpress backup located ›› {Fore.YELLOW}"
     FOUND_A_RECORD = f"{SUCCESS_MESSAGES}Dns-Record-A ››{Fore.YELLOW} "
     FOUND_MX_RECORD = f"{SUCCESS_MESSAGES}Dns-Record-MX ››{Fore.YELLOW} "
     FOUND_TXT_RECORD = f"{SUCCESS_MESSAGES}Dns-Record-TXT ››{Fore.YELLOW} "
     FOUND_NS_RECORD = f"{SUCCESS_MESSAGES}Dns-Record-NS ››{Fore.YELLOW} "
+    
+
     LOGGED_TO_FILE = f"{SUCCESS_MESSAGES}{Fore.YELLOW}SAVED LOG ›› {Fore.LIGHTBLACK_EX}"
 
 class ErrorMessages:
@@ -31,15 +36,17 @@ class ErrorMessages:
     STARTING_USCAN = f"{WARNING}{Fore.YELLOW}To continue please agree to the following terms above (y/n) "
     MAY_TAKE_A_SEC = f"\n{WARNING}{Fore.LIGHTYELLOW_EX}this may take take a little to gather results, adjust timeouts to be faster\n"
     CONNECTION_ERROR = f"{WARNING}{Fore.RED}Connection error"
-    NO_WORDPRESS_USER = f"{WARNING}Couldn't detect a Wordpress user"
+    NO_WORDPRESS_USER = f"{WARNING}Couldn't detect Wordpress user"
     NO_CONTENT_TYPE = f"{WARNING}Couldn't detect server content-type"
     NO_PINGBACK = f"{WARNING}Couldn't detect server pingback"
     NO_SERVER = f"{WARNING}Couldn't detect server header"
     NO_WORDPRESS_VERSION = f"{WARNING}Couldn't detect Wordpress version"
     NO_WORDPRESS_THEMES = f"{WARNING}Couldn't detect Wordpress themes"
     NO_WORDPRESS_PLUGINS = f"{WARNING}Couldn't detect Wordpress plugins"
+    NO_WORDPRESS_DIRECTORY_LISTING = f"{WARNING}Couldn't detect Wordpress directory listing"
+    NO_WORDPRESS_INSTALL_MODE = f"{WARNING}Couldn't detect Wordpress install-mode"
     NO_NAME_SERVER = f"{WARNING}Couldn't Detect DNS nameservers"
-    
+    RETRY_ERROR = f"{WARNING}Failed to retry requests"
 class DetectionMessages:
     # Detected missing file paths for uscan to operate
     DETECTED = f"{Fore.RESET}[ {Fore.YELLOW}Detected{Fore.RESET} ]"
@@ -48,6 +55,7 @@ class DetectionMessages:
     USERAGENT_WARN = f"{DETECTED} note: changing the useragent may break the bing dorker"
     NO_CMS = f"{DETECTED} No CMS found [{Fore.LIGHTBLACK_EX}this may be a false postive{Fore.RESET}]"
     FOUND_CLOUDFLARE = f"{DETECTED} Cloudflare [this could block requests]"
+    TRYING_DETECT_BACKUPS = f"{DETECTED} Trying to detect Wordpress backups"
 
 class HelpMenu:
     from modules.config import Config
