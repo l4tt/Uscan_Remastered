@@ -83,7 +83,7 @@ class HostInfo(SuccessMessages):
         try:
             ip = gethostbyname(strip_url)
             if any(ip.startswith(cf) for cf in self.CLOUDFLARE):
-                log_data_to_file(True, "info", "Cloudflare")
+                log_data_to_file("Detected", "info", "Cloudflare")
                 return True
         except Exception:
             return False

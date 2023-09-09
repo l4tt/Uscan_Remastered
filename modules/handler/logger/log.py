@@ -1,4 +1,5 @@
 
+
 from .logging import Logging
 from ...config import Config
 from json import dumps
@@ -61,7 +62,7 @@ class ResultLogger(Logging):
         # generate random bit UUID for result log
         return getrandbits(53) * 3
 
-    def get_current_time(self) -> str:
+    def get_current_time(self) -> tuple[str, str]:
         # get the time and date of result log
         now = datetime.now()
         return now.strftime("%H:%M:%S"), now.strftime("%H-%M-%S")
@@ -70,7 +71,7 @@ class ResultLogger(Logging):
         url = re.compile(r"https?://(www\.)?")
         return url.sub('', data).strip().strip('/')
 
-    def save_uscan_log(self, url: str, get_current_time: str, url_saved: list) -> None:
+    def save_uscan_log(self, url: str, get_current_time: tuple[str, str], url_saved: list) -> None:
         with open(f'results/{str(url)}-{get_current_time[1]}.json', 'a+') as log:
             log.write(dumps(url_saved, indent=3)+'\n')
 
