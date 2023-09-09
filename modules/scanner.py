@@ -3,6 +3,8 @@ from .config import Config
 from .recon.host.host_info import HostInfo
 from .recon.host.dns_records import DnsRecords
 from .handler.logger.log import log_data_to_file
+from .recon.basic.robots import detect_robots_txt
+from .recon.basic.debug_log import detect_debug_log
 from messages import SuccessMessages, ErrorMessages, DetectionMessages
 
 class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
@@ -27,23 +29,25 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
         if self.CONFIG.enable_recon():
             print(self.START_HOST_RECON)
             self.cms_detect(self.detect_cms(url)[0], url)
-            self.host_headers(url)
-            print(self.START_DNS_SEARCH)
-            DnsRecords(url).dns_resolver()
-            log_data_to_file(url, None, True)
+            self.host_headers(url) # Runs Detection modules for headers
+            detect_robots_txt(url) # Detects robots.txt and Disallows
+            detect_debug_log(url) # Detects debug.log
+            print(self.START_DNS_SEARCH) # prints the START DNS HEADER
+            DnsRecords(url).dns_resolver() # Resolves DNS records [A, TXT, NS, MX]
+            log_data_to_file(url, "", str(True)) # Writes Log to results/*
 
-    def detect_cms(self, url: str) -> str:
+    def detect_cms(self, url: str) -> tuple:
         if Wordpress.detect_wordpress(url):
             self.CMS = "Wordpress"
 
-        return (self.CMS, log_data_to_file(self.CMS, "detect", "cms"))
+        return (self.CMS, log_data_to_file(str(self.CMS), "detect", "cms"))
 
-    def load_modules(self) -> None:
+    def load_modules(self) -> object:
         return Wordpress()
 
-    def cms_detect(self, cms_detection: bool, url: str) -> str:
+    def cms_detect(self, cms_detection: bool, url: str) -> None:
         if not cms_detection:
-            return print(self.NO_CMS)
+            print(self.NO_CMS)
         if cms_detection:
             print(f"{self.SUCCESS_CMS}{self.CMS}")
             if self.CMS == "Wordpress":
@@ -53,7 +57,7 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
                 #self.joomla_modules(url)
             # Add more conditions for other CMSs and their respective modules
 
-    def host_headers(self, url: str) -> str:
+    def host_headers(self, url: str) -> None:
         """
         Detects host headers
 
@@ -62,7 +66,7 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
             url: str
 
         Returns:
-            str
+            None
         """
         host_info = HostInfo(url)
         host_headers = [host for host in [host_info.content_type(), host_info.x_pingback(), host_info.get_server(), host_info.xss_protection(), 

@@ -36,10 +36,9 @@ class DnsRecords:
                 print(f"{SuccessMessages.FOUND_TXT_RECORD}{answer}")
                 TXT_RECORD_LIST.append(str(answer))
 
-            log_data_to_file(A_RECORD_LIST, "info", "dns-a")
-            log_data_to_file(MX_RECORD_LIST, "info", "dns-mx")
-            log_data_to_file(TXT_RECORD_LIST, "info", "dns-txt")
-            log_data_to_file(NS_RECORD_LIST, "info", "dns-ns")
+            log_data_to_file('\n'.join(A_RECORD_LIST), "info", "dns-a")
+            log_data_to_file('\n'.join(MX_RECORD_LIST), "info", "dns-mx")
+            log_data_to_file('\n'.join(TXT_RECORD_LIST), "info", "dns-txt")
             # map = self.generate_dns_map()
             # draw_map = self.draw_dns_map(map)
         except (dns.resolver.NoNameservers, dns.resolver.NoAnswer) as e:

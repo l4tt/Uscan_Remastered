@@ -23,9 +23,11 @@ class SuccessMessages:
     FOUND_MX_RECORD = f"{SUCCESS_MESSAGES}Dns-Record-MX ››{Fore.YELLOW} "
     FOUND_TXT_RECORD = f"{SUCCESS_MESSAGES}Dns-Record-TXT ››{Fore.YELLOW} "
     FOUND_NS_RECORD = f"{SUCCESS_MESSAGES}Dns-Record-NS ››{Fore.YELLOW} "
-    
-
+    FOUND_ROBOTS_TXT = f"{SUCCESS_MESSAGES}Robots.txt {Fore.YELLOW}Located"
+    FOUND_DISALLOW_ROBOTS = f"{SUCCESS_MESSAGES}Found Disallow items in robots.txt ›› {Fore.YELLOW}"
+    FOUND_DEBUG_LOG = f"{SUCCESS_MESSAGES}Debug.log {Fore.YELLOW}Located"
     LOGGED_TO_FILE = f"{SUCCESS_MESSAGES}{Fore.YELLOW}SAVED LOG ›› {Fore.LIGHTBLACK_EX}"
+    FOUND_WORDPRESS_PLUGIN_VULNS = f"{SUCCESS_MESSAGES}Wordpress plugin CVE ››{Fore.YELLOW}"
 
 class ErrorMessages:
     # Error messages for uscan
@@ -47,6 +49,8 @@ class ErrorMessages:
     NO_WORDPRESS_INSTALL_MODE = f"{WARNING}Couldn't detect Wordpress install-mode"
     NO_NAME_SERVER = f"{WARNING}Couldn't Detect DNS nameservers"
     RETRY_ERROR = f"{WARNING}Failed to retry requests"
+    NO_ROBOTS_TXT = f"{WARNING}Couldn't detect robots.txt"
+    NO_DEBUG_LOG = f"{WARNING}Couldn't detect debug.log"
 class DetectionMessages:
     # Detected missing file paths for uscan to operate
     DETECTED = f"{Fore.RESET}[ {Fore.YELLOW}Detected{Fore.RESET} ]"
