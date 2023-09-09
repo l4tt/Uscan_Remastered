@@ -6,6 +6,7 @@ from .handler.logger.log import log_data_to_file
 from .recon.basic.robots import detect_robots_txt
 from .recon.basic.debug_log import detect_debug_log
 from messages import SuccessMessages, ErrorMessages, DetectionMessages
+from rich.console import Console
 
 class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
     def __init__(self) -> None:
@@ -23,18 +24,47 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
         Return:
             None: (pass)
         """
-        print(self.MAY_TAKE_A_SEC)
-        print(self.LOAD_MODULES)
-        self.load_modules()
-        if self.CONFIG.enable_recon():
-            print(self.START_HOST_RECON)
-            self.cms_detect(self.detect_cms(url)[0], url)
-            self.host_headers(url) # Runs Detection modules for headers
-            detect_robots_txt(url) # Detects robots.txt and Disallows
-            detect_debug_log(url) # Detects debug.log
-            print(self.START_DNS_SEARCH) # prints the START DNS HEADER
-            DnsRecords(url).dns_resolver() # Resolves DNS records [A, TXT, NS, MX]
-            log_data_to_file(url, "", str(True)) # Writes Log to results/*
+
+
+        tasks = [
+            "Loading Modules",
+            "Running Host Info Detection",
+            "Running Host Headers Detection",
+            "Detecting robots.txt and Disallows",
+            "Detecting debug.log",
+            "Resolving DNS records",
+            "Writing Log to results/*"
+        ]
+        task_count = len(tasks)
+
+        console = Console()
+
+        with console.status("[bold green]Running Uscans Modules...") as status:
+            for task in tasks:
+                remaining_tasks = task_count - tasks.index(task) - 1
+                status.update(f"[cyan][bold](Scanning) [yellow]- {task} ({remaining_tasks}/{task_count})")
+                if task == tasks[0]:
+                    self.load_modules()
+                elif task == tasks[1]:
+                    print(self.START_HOST_RECON)
+                    if self.CONFIG.enable_recon():
+                        self.cms_detect(self.detect_cms(url)[0], url)
+                elif task == tasks[2]:
+                    self.host_headers(url)
+                elif task == tasks[3]:
+                    detect_robots_txt(url)
+                elif task == tasks[4]:
+                    detect_debug_log(url)
+                elif task == tasks[5]:
+                    print(self.START_DNS_SEARCH)
+                    DnsRecords(url).dns_resolver()
+                elif task == tasks[6]:
+                    log_data_to_file(url, "", str(True))
+
+
+
+
+
 
     def detect_cms(self, url: str) -> tuple:
         if Wordpress.detect_wordpress(url):
