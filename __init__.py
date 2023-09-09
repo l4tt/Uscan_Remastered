@@ -41,10 +41,9 @@ CONFIG = 'config.json'
 @lambda _: _()
 class _:
 
-    def __init__(self: object) -> None:
+    def __init__(self) -> None:
         for functions in [self.clear_console, self.paths, self.mods, self.config_file_check, self.check_file_age, self.start_uscan]:
             functions()
-
 
     def clear_console(self: object) -> None:
         if os.name != 'nt':
@@ -53,8 +52,9 @@ class _:
             self.title()
             os.system('cls')
 
-    def title() -> None:
-        ctypes.windll.kernel32.SetConsoleTitleW(f'Uscan | v{VERSION}')
+    # Will return a error this func is for windows system's only
+    def title() -> None: # type: ignore
+        ctypes.windll.kernel32.SetConsoleTitleW(f'Uscan | v{VERSION}') # type: ignore
 
 
     def config_file_check(self: object) -> None:
@@ -87,4 +87,4 @@ class _:
     def start_uscan(self: object) -> None:
         print(ErrorMessages.GOV_CPL)
         if input(ErrorMessages.STARTING_USCAN) == "n":
-            return
+            exit(0)
