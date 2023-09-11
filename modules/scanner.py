@@ -4,7 +4,10 @@ from .recon.host.host_info import HostInfo
 from .recon.host.dns_records import DnsRecords
 from .handler.logger.log import log_data_to_file
 from .recon.basic.robots import detect_robots_txt
+from .recon.basic.error_log import detect_error_log
 from .recon.basic.debug_log import detect_debug_log
+from .recon.basic.link_search import detect_links_in_content
+from .recon.port_scanning.port_scan import port_scan
 from messages import SuccessMessages, ErrorMessages, DetectionMessages
 from rich.console import Console
 
@@ -30,9 +33,9 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
             "Loading Modules",
             "Running Host Info Detection",
             "Running Host Headers Detection",
-            "Detecting robots.txt and Disallows",
+            "Detecting robots.txt and Disallows & error logs",
             "Detecting debug.log",
-            "Resolving DNS records",
+            "Resolving DNS records & Scanning ports",
             "Writing Log to results/*"
         ]
         task_count = len(tasks)
@@ -53,17 +56,17 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
                     self.host_headers(url)
                 elif task == tasks[3]:
                     detect_robots_txt(url)
+                    detect_error_log(url)
+                    detect_links_in_content(url)
                 elif task == tasks[4]:
                     detect_debug_log(url)
                 elif task == tasks[5]:
                     print(self.START_DNS_SEARCH)
                     DnsRecords(url).dns_resolver()
+                    print(self.START_PORT_SCAN)
+                    port_scan(url)
                 elif task == tasks[6]:
                     log_data_to_file(url, "", str(True))
-
-
-
-
 
 
     def detect_cms(self, url: str) -> tuple:

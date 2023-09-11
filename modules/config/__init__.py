@@ -28,3 +28,6 @@ class Config(DetectionMessages):
 
     def logging(self) -> bool:
         return self.json_dump['logging']
+
+    def display_link_amount(self) -> int:
+        return self.json_dump['link-display-amount']

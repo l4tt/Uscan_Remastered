@@ -5,6 +5,7 @@ class SuccessMessages:
     SUCCESS_CMS = f"{SUCCESS_MESSAGES}CMS:{Fore.YELLOW} "
     START_HOST_RECON = f"{Fore.RESET}═══════{Fore.LIGHTBLACK_EX}HOST INFO{Fore.RESET}═══════"
     START_DNS_SEARCH = f"{Fore.RESET}═══════{Fore.LIGHTBLACK_EX}DNS RECORDS{Fore.RESET}═══════"
+    START_PORT_SCAN = f"{Fore.RESET}═══════{Fore.LIGHTBLACK_EX}PORT SCAN{Fore.RESET}═══════"
     LOAD_MODULES = f"{Fore.RESET}═══════{Fore.LIGHTBLACK_EX}LOAD MODULES{Fore.RESET}═══════"
     START_WORDPRESS_MODULE = f"{SUCCESS_MESSAGES}{Fore.YELLOW}• Loaded Wordpress module"
     FOUND_WORDPRESS_USER = f"{SUCCESS_MESSAGES}Wordpress User ››{Fore.YELLOW}"
@@ -28,6 +29,8 @@ class SuccessMessages:
     FOUND_DEBUG_LOG = f"{SUCCESS_MESSAGES}Debug.log {Fore.YELLOW}Located"
     LOGGED_TO_FILE = f"{SUCCESS_MESSAGES}{Fore.YELLOW}SAVED LOG ›› {Fore.LIGHTBLACK_EX}"
     FOUND_WORDPRESS_PLUGIN_VULNS = f"{SUCCESS_MESSAGES}Wordpress plugin CVE ››{Fore.YELLOW}"
+    FOUND_ERROR_LOG = f"{SUCCESS_MESSAGES}error_log file {Fore.YELLOW}Located ›› "
+    FOUND_LINKS_IN_CONTENT = f"{SUCCESS_MESSAGES}Links in content ››{Fore.YELLOW}"
 
 class ErrorMessages:
     # Error messages for uscan
@@ -51,6 +54,7 @@ class ErrorMessages:
     RETRY_ERROR = f"{WARNING}Failed to retry requests"
     NO_ROBOTS_TXT = f"{WARNING}Couldn't detect robots.txt"
     NO_DEBUG_LOG = f"{WARNING}Couldn't detect debug.log"
+    NO_LINKS_IN_CONTENT = f"{WARNING}Couldn't detect links in content"
 class DetectionMessages:
     # Detected missing file paths for uscan to operate
     DETECTED = f"{Fore.RESET}[ {Fore.YELLOW}Detected{Fore.RESET} ]"
@@ -60,6 +64,8 @@ class DetectionMessages:
     NO_CMS = f"{DETECTED} No CMS found [{Fore.LIGHTBLACK_EX}this may be a false postive{Fore.RESET}]"
     FOUND_CLOUDFLARE = f"{DETECTED} Cloudflare [this could block requests]"
     TRYING_DETECT_BACKUPS = f"{DETECTED} Trying to detect Wordpress backups"
+    FOUND_OPEN_PORT = f"{DETECTED} Open port ››{Fore.YELLOW}"
+    FOUND_WEB_SERVER = f"{DETECTED} Web-Server running on port ››{Fore.YELLOW}"
 
 class HelpMenu:
     from modules.config import Config
