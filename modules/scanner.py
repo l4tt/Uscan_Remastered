@@ -8,6 +8,7 @@ from .recon.basic.error_log import detect_error_log
 from .recon.basic.debug_log import detect_debug_log
 from .recon.basic.link_search import detect_links_in_content
 from .recon.port_scanning.port_scan import port_scan
+from .exploit.sql.sql_injection import find_php_links
 from messages import SuccessMessages, ErrorMessages, DetectionMessages
 from rich.console import Console
 
@@ -35,7 +36,7 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
             "Running Host Headers Detection",
             "Detecting robots.txt and Disallows & error logs",
             "Detecting debug.log",
-            "Resolving DNS records & Scanning ports",
+            "Time to exploit baby",
             "Writing Log to results/*"
         ]
         task_count = len(tasks)
@@ -65,6 +66,8 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
                     DnsRecords(url).dns_resolver()
                     print(self.START_PORT_SCAN)
                     port_scan(url)
+                    print(self.START_EXPLOIT_MODULES)
+                    find_php_links(url)
                 elif task == tasks[6]:
                     log_data_to_file(url, "", str(True))
 

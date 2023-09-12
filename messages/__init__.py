@@ -6,6 +6,7 @@ class SuccessMessages:
     START_HOST_RECON = f"{Fore.RESET}═══════{Fore.LIGHTBLACK_EX}HOST INFO{Fore.RESET}═══════"
     START_DNS_SEARCH = f"{Fore.RESET}═══════{Fore.LIGHTBLACK_EX}DNS RECORDS{Fore.RESET}═══════"
     START_PORT_SCAN = f"{Fore.RESET}═══════{Fore.LIGHTBLACK_EX}PORT SCAN{Fore.RESET}═══════"
+    START_EXPLOIT_MODULES = f"{Fore.RESET}═══════{Fore.LIGHTBLACK_EX}EXPLOITS{Fore.RESET}═══════"
     LOAD_MODULES = f"{Fore.RESET}═══════{Fore.LIGHTBLACK_EX}LOAD MODULES{Fore.RESET}═══════"
     START_WORDPRESS_MODULE = f"{SUCCESS_MESSAGES}{Fore.YELLOW}• Loaded Wordpress module"
     FOUND_WORDPRESS_USER = f"{SUCCESS_MESSAGES}Wordpress User ››{Fore.YELLOW}"
@@ -31,6 +32,7 @@ class SuccessMessages:
     FOUND_WORDPRESS_PLUGIN_VULNS = f"{SUCCESS_MESSAGES}Wordpress plugin CVE ››{Fore.YELLOW}"
     FOUND_ERROR_LOG = f"{SUCCESS_MESSAGES}error_log file {Fore.YELLOW}Located ›› "
     FOUND_LINKS_IN_CONTENT = f"{SUCCESS_MESSAGES}Links in content ››{Fore.YELLOW}"
+    FOUND_SQL_INJECTION = f"{SUCCESS_MESSAGES}SQL injection ››{Fore.YELLOW}"
 
 class ErrorMessages:
     # Error messages for uscan
@@ -55,6 +57,7 @@ class ErrorMessages:
     NO_ROBOTS_TXT = f"{WARNING}Couldn't detect robots.txt"
     NO_DEBUG_LOG = f"{WARNING}Couldn't detect debug.log"
     NO_LINKS_IN_CONTENT = f"{WARNING}Couldn't detect links in content"
+    NO_SQL_INJECTION_CONTENT = f"{WARNING}Couldn't detect sql injection for "
 class DetectionMessages:
     # Detected missing file paths for uscan to operate
     DETECTED = f"{Fore.RESET}[ {Fore.YELLOW}Detected{Fore.RESET} ]"
