@@ -13,4 +13,4 @@ def detect_debug_log(url: str) -> None:
     if debug_request != 200:
         print(ErrorMessages.NO_DEBUG_LOG)
     if debug_request == 200:
-        print(SuccessMessages.FOUND_DEBUG_LOG)
+        print(f"{SuccessMessages.FOUND_DEBUG_LOG} {url}/debug.log")

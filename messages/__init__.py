@@ -33,6 +33,8 @@ class SuccessMessages:
     FOUND_ERROR_LOG = f"{SUCCESS_MESSAGES}error_log file {Fore.YELLOW}Located ›› "
     FOUND_LINKS_IN_CONTENT = f"{SUCCESS_MESSAGES}Links in content ››{Fore.YELLOW}"
     FOUND_SQL_INJECTION = f"{SUCCESS_MESSAGES}SQL injection ››{Fore.YELLOW}"
+    FOUND_BLIND_SQL_INJECTION = f"{SUCCESS_MESSAGES}Blind SQL injection ››{Fore.YELLOW}"
+    FOUND_LFI = f"{SUCCESS_MESSAGES}LFI detected ››{Fore.YELLOW}"
 
 class ErrorMessages:
     # Error messages for uscan
@@ -58,6 +60,7 @@ class ErrorMessages:
     NO_DEBUG_LOG = f"{WARNING}Couldn't detect debug.log"
     NO_LINKS_IN_CONTENT = f"{WARNING}Couldn't detect links in content"
     NO_SQL_INJECTION_CONTENT = f"{WARNING}Couldn't detect sql injection for "
+    NO_LFI = f"{WARNING}Couldn't detect lfi for "
 class DetectionMessages:
     # Detected missing file paths for uscan to operate
     DETECTED = f"{Fore.RESET}[ {Fore.YELLOW}Detected{Fore.RESET} ]"

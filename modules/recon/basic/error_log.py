@@ -10,6 +10,7 @@ CONFIG = Config()
 
 def detect_error_log(url: str):
     for error_log_paths in error_log_path:
-        error_log_request = retry_request.retry(requests.get, f"{url}/{error_log_paths}", timeout=CONFIG.timeouts(), headers={'User-Agent': CONFIG.useragent()}).status_code
-        if error_log_request == 200:
-            print(f"{SuccessMessages.FOUND_ERROR_LOG}{url}/{error_log_paths}")
+        error_log_request = retry_request.retry(requests.get, f"{url}/{error_log_paths}", timeout=CONFIG.timeouts(), headers={'User-Agent': CONFIG.useragent()})
+        if error_log_request.status_code == 200:
+            if "mysql" in error_log_request.text:
+                print(f"{SuccessMessages.FOUND_ERROR_LOG}{url}/{error_log_paths}")

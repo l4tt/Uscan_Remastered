@@ -16,5 +16,5 @@ def detect_robots_txt(url: str) -> None:
     if request.status_code != 200:
         print(ErrorMessages.NO_ROBOTS_TXT)
     if request.status_code == 200:
-        print(SuccessMessages.FOUND_ROBOTS_TXT)
+        print(f"{SuccessMessages.FOUND_ROBOTS_TXT} {url}/robots.txt")
         enumrate_robots_txt(request.text.split('\n'))

@@ -1,7 +1,7 @@
 {
     "threads": 20,
     "useragent": "Uscan",
-    "timeouts": 5,
+    "timeouts": 2,
     "enable-exploits": true,
     "enable-recon": true,
     "logging": true,
