@@ -1,7 +1,7 @@
 # Uscan_Remastered
 ...
 
-This is a new version of Uscan, currently in a testing branch and not intended for public use yet.
+This is a new version of Uscan, Version Alpha
 
 ![image](https://imgur.com/CsiPC8X.gif)
 
