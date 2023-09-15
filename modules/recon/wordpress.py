@@ -170,6 +170,8 @@ class Wordpress(SuccessMessages, Config):
 			]
         print(DetectionMessages.TRYING_DETECT_BACKUPS)
         for backups in backup:
-            backup_request = retry_request.retry(requests.get, f"{url}/{backups}", timeout=CONFIG.timeouts(), headers={'User-Agent': CONFIG.useragent()}).status_code
-            if "200" in str(backup_request):
+            backup_request = retry_request.retry(requests.get, f"{url}/{backups}", timeout=CONFIG.timeouts(), headers={'User-Agent': CONFIG.useragent()})
+            if "Not Found" in backup_request.text:
+                continue
+            if backup_request.status_code == 200:
                 print(f"{SuccessMessages.FOUND_WORDPRES_BACKUPS}{backups}")
