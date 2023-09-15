@@ -1,4 +1,5 @@
 from colorama import Fore
+from os import listdir
 
 class SuccessMessages:
     SUCCESS_MESSAGES = f"{Fore.RESET}[ {Fore.GREEN}Success{Fore.RESET} ] "
@@ -35,6 +36,8 @@ class SuccessMessages:
     FOUND_SQL_INJECTION = f"{SUCCESS_MESSAGES}SQL injection ››{Fore.YELLOW}"
     FOUND_BLIND_SQL_INJECTION = f"{SUCCESS_MESSAGES}Blind SQL injection ››{Fore.YELLOW}"
     FOUND_LFI = f"{SUCCESS_MESSAGES}LFI detected ››{Fore.YELLOW}"
+    FOUND_XSS = f"{SUCCESS_MESSAGES}Potential XSS vulnerability found ››{Fore.YELLOW}"
+    VULN_TO_EXPLOIT = f"{SUCCESS_MESSAGES}Exploitable ››{Fore.YELLOW}"
 
 class ErrorMessages:
     # Error messages for uscan
@@ -61,6 +64,7 @@ class ErrorMessages:
     NO_LINKS_IN_CONTENT = f"{WARNING}Couldn't detect links in content"
     NO_SQL_INJECTION_CONTENT = f"{WARNING}Couldn't detect sql injection for "
     NO_LFI = f"{WARNING}Couldn't detect lfi for "
+    NO_EXPLOIT = f"{WARNING}Not Exploitable to "
 class DetectionMessages:
     # Detected missing file paths for uscan to operate
     DETECTED = f"{Fore.RESET}[ {Fore.YELLOW}Detected{Fore.RESET} ]"
@@ -75,6 +79,12 @@ class DetectionMessages:
 
 class HelpMenu:
     from modules.config import Config
+    def count_exploit_modules() -> int:
+        modules_list = ["modules/exploit/exploits/wordpress"]
+        count = 0
+        for module_path in modules_list:
+            count += len(listdir(module_path))
+        return count
     # loads config, trys to parse items
     config = Config()
     banner = f"""
@@ -82,7 +92,7 @@ class HelpMenu:
                 ║ ║└─┐│  ├─┤│││
                 ╚═╝└─┘└─┘┴ ┴┘└┘
                         \033[1;91m スキャナー\033[00m\n
-             [ Threads {config.threads()} - Exploits 0 ]
+             [ Threads {config.threads()} - Exploits {count_exploit_modules()} ]
                type help to see options
             """
     HELP = """\n       ╔══════════════════════════════════════════════════════════════╗

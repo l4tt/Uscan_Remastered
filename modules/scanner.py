@@ -10,6 +10,8 @@ from .recon.basic.link_search import detect_links_in_content
 from .recon.port_scanning.port_scan import port_scan
 from .exploit.sql.sql_injection import find_php_links
 from .exploit.lfi.local_inclusion import detect_lfi
+from .exploit.xss.xss import search_and_test_xss
+from .exploit.explot_handler import exploit_runner
 from messages import SuccessMessages, ErrorMessages, DetectionMessages
 from rich.console import Console
 
@@ -32,11 +34,11 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
 
 
         tasks = [
-            "Loading Modules",
             "Running Host Info Detection",
             "Running Host Headers Detection",
             "Detecting robots.txt and Disallows & error logs",
             "Detecting debug.log",
+            "Detecting DNS & Port scanning",
             "Time to exploit baby",
             "Writing Log to results/*"
         ]
@@ -45,33 +47,53 @@ class Scanner(SuccessMessages, ErrorMessages, DetectionMessages):
         console = Console()
 
         with console.status("[bold green]Running Uscans Modules...") as status:
-            for task in tasks:
+            task_functions = [
+                self.run_host_recon,
+                self.host_headers,
+                self.detect_robots_and_logs,
+                self.detect_debug_logs,
+                self.run_dns_modules,
+                self.run_exploit_modules,
+                self.log_data
+            ]
+            self.load_modules()
+            for task, task_function in zip(tasks, task_functions):
                 remaining_tasks = task_count - tasks.index(task) - 1
                 status.update(f"[cyan][bold](Scanning) [yellow]- {task} ({remaining_tasks}/{task_count})")
-                if task == tasks[0]:
-                    self.load_modules()
-                elif task == tasks[1]:
-                    print(self.START_HOST_RECON)
-                    if self.CONFIG.enable_recon():
-                        self.cms_detect(self.detect_cms(url)[0], url)
-                elif task == tasks[2]:
-                    self.host_headers(url)
-                elif task == tasks[3]:
-                    detect_robots_txt(url)
-                    detect_error_log(url)
-                    detect_links_in_content(url)
-                elif task == tasks[4]:
-                    detect_debug_log(url)
-                elif task == tasks[5]:
-                    print(self.START_DNS_SEARCH)
-                    DnsRecords(url).dns_resolver()
-                    print(self.START_PORT_SCAN)
-                    port_scan(url)
-                    print(self.START_EXPLOIT_MODULES)
-                    find_php_links(url)
-                    detect_lfi(url)
-                elif task == tasks[6]:
-                    log_data_to_file(url, "", str(True))
+                task_function(url)
+                tasks[tasks.index(task)] = f"{task} - Completed"
+
+    def run_host_recon(self, url: str) -> None:
+        print(self.START_HOST_RECON)
+        if self.CONFIG.enable_recon():
+            self.cms_detect(self.detect_cms(url)[0], url)
+
+    def detect_robots_and_logs(self, url: str) -> None:
+        detect_robots_txt(url)
+        detect_error_log(url)
+        detect_links_in_content(url)
+
+    def run_dns_modules(self, url: str) -> None:
+        print(self.START_DNS_SEARCH)
+        DnsRecords(url).dns_resolver()
+        print(self.START_PORT_SCAN)
+        port_scan(url)
+
+    def run_exploit_modules(self, url: str) -> None:
+        print(self.START_EXPLOIT_MODULES)
+        find_php_links(url)
+        detect_lfi(url)
+        #search_and_test_xss(url)
+        if self.CMS == "Wordpress":
+            exploit_runner(self.CMS, url)
+
+
+    def detect_debug_logs(self, url):
+        detect_debug_log(url)
+
+
+    def log_data(self, url: str) -> None:
+        log_data_to_file(url, "", str(True))
 
 
     def detect_cms(self, url: str) -> tuple:
