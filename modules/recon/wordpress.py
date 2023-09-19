@@ -114,7 +114,8 @@ class Wordpress(SuccessMessages, Config):
                 plugins = ', '.join(unique_plugins)
                 log_data_to_file(plugins, "detect", "plugin")
                 print(f"{SuccessMessages.FOUND_WORDPRESS_PLUGINS}{plugins}")
-            print(ErrorMessages.NO_WORDPRESS_PLUGINS)
+            else:
+                print(ErrorMessages.NO_WORDPRESS_PLUGINS)
         except requests.exceptions.ConnectionError:
             print(ErrorMessages.CONNECTION_ERROR)
 
@@ -175,3 +176,4 @@ class Wordpress(SuccessMessages, Config):
                 continue
             if backup_request.status_code == 200:
                 print(f"{SuccessMessages.FOUND_WORDPRES_BACKUPS}{backups}")
+
