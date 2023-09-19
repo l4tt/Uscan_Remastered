@@ -24,6 +24,7 @@ join uscans telegram community to hear about updates and request new features or
 
 
 ![image](https://imgur.com/CsiPC8X.gif)
+![image](https://github.com/l4tt/Uscan_Remastered/assets/97377137/e3f344ac-2c58-4a6e-8606-fe66ca701c75)
 
 
 
